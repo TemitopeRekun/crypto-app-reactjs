@@ -43,7 +43,11 @@ function App() {
 				</Layout>
 			</div>
 
-			<div className="footer"></div>
+			<div className="footer">
+				<Typography.Title>
+					
+				</Typography.Title>
+			</div>
 		</div>
 	);
 }
