@@ -11,6 +11,33 @@ import {
 } from "@ant-design/icons";
 
 const Navbar = () => {
+	const menuItems = [
+		{
+			key: "home",
+			icon: <HomeOutlined />,
+			text: "Home",
+			link: "/",
+		},
+		{
+			key: "cryptocurrencies",
+			icon: <FundOutlined />,
+			text: "Cryptocurrencies",
+			link: "/Cryptocurrencies",
+		},
+		{
+			key: "exchanges",
+			icon: <MoneyCollectOutlined />,
+			text: "Exchanges",
+			link: "/exchanges",
+		},
+		{
+			key: "news",
+			icon: <BulbOutlined />,
+			text: "News",
+			link: "/news",
+		},
+	];
+
 	return (
 		<div className="nav-container">
 			<div className="logo-container">
@@ -21,21 +48,11 @@ const Navbar = () => {
 			</div>
 
 			<Menu theme="dark">
-				<Menu.Item icon={<HomeOutlined />}>
-					<Link to="/">Home</Link>
-				</Menu.Item>
-
-				<Menu.Item icon={<FundOutlined />}>
-					<Link to="/Cryptocurrencies">Cryptocurrencies</Link>
-				</Menu.Item>
-
-				<Menu.Item icon={<MoneyCollectOutlined />}>
-					<Link to="/exchanges">Exchanges</Link>
-				</Menu.Item>
-
-				<Menu.Item icon={<BulbOutlined />}>
-					<Link to="/news">News</Link>
-				</Menu.Item>
+				{menuItems.map((item) => (
+					<Menu.Item key={item.key} icon={item.icon}>
+						<Link to={item.link}>{item.text}</Link>
+					</Menu.Item>
+				))}
 			</Menu>
 		</div>
 	);
