@@ -9,7 +9,7 @@ import News from "./News";
 const { Title } = Typography;
 
 const Homepage = () => {
-	const { data, isFetchig } = useGetCryptosQuery();
+	const { data, isFetchig } = useGetCryptosQuery(10);
 	// Check if data is still loading
 	if (isFetchig) return "Loading...";
 
@@ -65,7 +65,7 @@ const Homepage = () => {
 				</Title>
 			</div>
 
-			<Cryptocurrencies limit={10} />
+			<Cryptocurrencies simplified />
 
 			<div className="home-heading-container">
 				<Title level={2} className="home-title">

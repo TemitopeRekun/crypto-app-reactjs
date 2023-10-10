@@ -5,25 +5,34 @@ import { Card, Row, Col, Input } from "antd";
 
 import { useGetCryptosQuery } from "../Services/CryptoApi";
 
-const Cryptocurrencies = ({ limit }) => {
-	const { data: cryptosList, isFetchig } = useGetCryptosQuery();
-	const [cryptos, setCryptos] = useState(cryptosList?.data?.coins);
+const Cryptocurrencies = ({ simplified }) => {
+	const count = simplified ? 10 : 100;
+	const { data: cryptosList, isFetchig } = useGetCryptosQuery(count);
+	const [cryptos, setCryptos] = useState([]);
 	const [searchTerm, setSearchTerm] = useState("");
 
-	console.log(cryptos)
+	useEffect(() => {
+		const filteredData = cryptosList?.data?.coins.filter((coin) =>
+			coin.name.toLowerCase().includes(searchTerm.toLowerCase())
+		);
+
+		setCryptos(filteredData);
+	}, [searchTerm, cryptosList]);
 
 	if (isFetchig) return "Loading...";
-
 	return (
 		<div>
-			<div className="search-crypto">
-				<input
-					placeholder="Search Cryptocurrency"
-					onChange={(e) => setSearchTerm(e.target.value)}
-				/>
-			</div>
+			{!simplified && (
+				<div className="search-crypto">
+					<Input
+						placeholder="Search Cryptocurrency"
+						onChange={(e) => setSearchTerm(e.target.value)}
+					/>
+				</div>
+			)}
+
 			<Row gutter={[32, 32]} className="crypto-card-container">
-				{cryptos?.slice(0, limit).map((currency) => (
+				{cryptos?.map((currency) => (
 					<Col
 						xs={24}
 						sm={12}
@@ -37,7 +46,7 @@ const Cryptocurrencies = ({ limit }) => {
 									<img
 										className="crypto-image"
 										src={currency.iconUrl}
-										hoverable
+										hoverable="true"
 									/>
 								}>
 								<p>Price: {millify(currency.price)}</p>
