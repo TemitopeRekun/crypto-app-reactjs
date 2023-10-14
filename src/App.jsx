@@ -28,7 +28,7 @@ function App() {
 							<Route
 								exact
 								path="/cryptocurrencies"
-								element={<Cryptocurrencies limit={100}/>}
+								element={<Cryptocurrencies />}
 							/>
 
 							<Route

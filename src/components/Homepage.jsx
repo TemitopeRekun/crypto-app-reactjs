@@ -25,31 +25,31 @@ const Homepage = () => {
 				Global Crypto Stats
 			</Title>
 			<Row>
-				<Col span={12}>
+				<Col span={12} key="totalCryptocurrencies">
 					<Statistic
 						title="Total Cryptocurrencies"
 						value={globalStats.totalCoins}
 					/>
 				</Col>
-				<Col span={12}>
+				<Col span={12} key="totalExchanges">
 					<Statistic
 						title="Total Exchanges"
 						value={millify(globalStats.totalExchanges)}
 					/>
 				</Col>
-				<Col span={12}>
+				<Col span={12} key="totalMarketCap">
 					<Statistic
 						title="Total Market Cap"
 						value={millify(globalStats.totalMarketCap)}
 					/>
 				</Col>
-				<Col span={12}>
+				<Col span={12} key="total24hVolume">
 					<Statistic
 						title="Total 24h Volume"
 						value={millify(globalStats.total24hVolume)}
 					/>
 				</Col>
-				<Col span={12}>
+				<Col span={12} key="totalMarkets">
 					<Statistic
 						title="Total Markets"
 						value={millify(globalStats.totalMarkets)}
