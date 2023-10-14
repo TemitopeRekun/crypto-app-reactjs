@@ -15,7 +15,7 @@ const Homepage = () => {
 
 	// Check if data exists and has the expected structure
 	if (!data || !data.data || !data.data.stats) {
-		return "Data not available";
+		return "Loading...";
 	}
 
 	const globalStats = data.data.stats;
