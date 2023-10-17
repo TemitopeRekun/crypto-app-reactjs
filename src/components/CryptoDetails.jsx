@@ -19,6 +19,7 @@ import {
 	useGetCryptoDetailsQuery,
 	useGetCryptoHistoryQuery,
 } from "../Services/CryptoApi";
+import Loader from "./Loader";
 
 const { Title, Text } = Typography;
 const { Options } = Select;
@@ -33,7 +34,7 @@ const CryptoDetails = () => {
 	});
 
 	const cryptoDetails = data?.data?.coin;
-	if (isFetching) return "Loading...";
+	if (isFetching) return <Loader />;
 
 	const time = ["3h", "24h", "7d", "30d", "1y", "3m", "3y", "5y"];
 
@@ -116,6 +117,13 @@ const CryptoDetails = () => {
 					{cryptoDetails.name} Live price in US Dollar (USD). View value
 					statistics, market cap and supply.
 				</p>
+				<Row className="coin-desc">
+					<Title level={3} className="coin-details-heading">
+						What is {cryptoDetails.name}?
+					</Title>
+
+					<p>{HTMLReactParser(cryptoDetails.description)}</p>
+				</Row>
 			</Col>
 			<Select
 				defaultValue="7d"
@@ -126,6 +134,7 @@ const CryptoDetails = () => {
 					<Option key={date}>{date}</Option>
 				))}
 			</Select>
+
 			<LineChart
 				coinHistory={coinHistory}
 				currentPrice={millify(cryptoDetails.price)}
@@ -137,8 +146,12 @@ const CryptoDetails = () => {
 					<Col className="coin-value-statistics-heading">
 						<Title className="coin-details-heading" level={3}>
 							{cryptoDetails.name} value statistics
-							<p>{cryptoDetails.description}</p>
 						</Title>
+						<p>
+							An overview showing the statistics of {cryptoDetails.name},
+							such as the base and quote currency, the rank, and trading
+							volume.
+						</p>
 					</Col>
 					{stats.map((stat, index) => (
 						<Col className="coin-stats" key={index}>
@@ -155,11 +168,11 @@ const CryptoDetails = () => {
 					<Col className="coin-value-statistics-heading">
 						<Title className="coin-details-heading" level={3}>
 							Other statistics
-							<p>
-								An overview showing showing the stats of all
-								Cryptocurrencies
-							</p>
 						</Title>
+						<p>
+							An overview showing showing the stats of all
+							Cryptocurrencies
+						</p>
 					</Col>
 					{genericStats.map((stat, index) => (
 						<Col className="coin-stats" key={index}>
