@@ -27,7 +27,7 @@ const CryptoDetails = () => {
 	const { coinId } = useParams();
 	const [timePeriod, setTimePeriod] = useState("7d");
 	const { data, isFetching } = useGetCryptoDetailsQuery(coinId);
-	const { data: coinHistory } = useGetCryptoDetailsQuery({
+	const { data: coinHistory } = useGetCryptoHistoryQuery({
 		coinId,
 		timePeriod,
 	});
@@ -126,10 +126,9 @@ const CryptoDetails = () => {
 					<Option key={date}>{date}</Option>
 				))}
 			</Select>
-
 			<LineChart
 				coinHistory={coinHistory}
-				currentPrice={cryptoDetails.price}
+				currentPrice={millify(cryptoDetails.price)}
 				coinName={cryptoDetails.name}
 			/>
 
