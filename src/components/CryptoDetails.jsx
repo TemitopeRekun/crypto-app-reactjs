@@ -3,6 +3,7 @@ import HTMLReactParser from "html-react-parser";
 import { useParams } from "react-router-dom";
 import millify from "millify";
 import { Col, Row, Typography, Select } from "antd";
+import LineChart from "./LineChart";
 import {
 	MoneyCollectOutlined,
 	DollarCircleOutlined,
@@ -14,7 +15,10 @@ import {
 	NumberOutlined,
 	ThunderboltOutlined,
 } from "@ant-design/icons";
-import { useGetCryptoDetailsQuery } from "../Services/CryptoApi";
+import {
+	useGetCryptoDetailsQuery,
+	useGetCryptoHistoryQuery,
+} from "../Services/CryptoApi";
 
 const { Title, Text } = Typography;
 const { Options } = Select;
@@ -23,6 +27,11 @@ const CryptoDetails = () => {
 	const { coinId } = useParams();
 	const [timePeriod, setTimePeriod] = useState("7d");
 	const { data, isFetching } = useGetCryptoDetailsQuery(coinId);
+	const { data: coinHistory } = useGetCryptoDetailsQuery({
+		coinId,
+		timePeriod,
+	});
+
 	const cryptoDetails = data?.data?.coin;
 	if (isFetching) return "Loading...";
 
@@ -118,7 +127,11 @@ const CryptoDetails = () => {
 				))}
 			</Select>
 
-			{/* Line chart */}
+			<LineChart
+				coinHistory={coinHistory}
+				currentPrice={cryptoDetails.price}
+				coinName={cryptoDetails.name}
+			/>
 
 			<Col className="stats-container">
 				<Col className="coin-value-statistics">
@@ -161,7 +174,6 @@ const CryptoDetails = () => {
 				</Col>
 			</Col>
 			<Col className="coin-desc-link">
-				
 				<Col className="coin-links">
 					<Title level={3} className="coin-details-heading">
 						{cryptoDetails.name} Links
