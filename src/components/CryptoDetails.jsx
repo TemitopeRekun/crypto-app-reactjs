@@ -22,7 +22,7 @@ import {
 import Loader from "./Loader";
 
 const { Title, Text } = Typography;
-const { Options } = Select;
+const { Option } = Select;
 
 const CryptoDetails = () => {
 	const { coinId } = useParams();
