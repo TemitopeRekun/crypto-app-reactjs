@@ -11,15 +11,10 @@ const { Title } = Typography;
 
 const Homepage = () => {
 	const { data, isFetching } = useGetCryptosQuery(10);
-	// Check if data is still loading
+	const globalStats = data?.data?.stats;
+
 	if (isFetching) return <Loader />;
 
-	// Check if data exists and has the expected structure
-	// if (!data || !data.data || !data.data.stats) {
-	// 	return "Loading...";
-	// }
-
-	const globalStats = data.data.stats;
 	return (
 		<>
 			<Title level={2} className="heading">
